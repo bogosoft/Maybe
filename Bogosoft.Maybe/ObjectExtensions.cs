@@ -1,7 +1,7 @@
 ﻿namespace Bogosoft.Maybe
 {
     /// <summary>
-    /// Provides a set of static methods for conversions between objects and may bes.
+    /// Provides a set of static methods for conversions between objects and <see cref="MayBe{T}"/> objects.
     /// </summary>
     public static class ObjectExtensions
     {
