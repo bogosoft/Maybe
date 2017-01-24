@@ -1,0 +1,35 @@
+version: 1.0.0.{build}
+pull_requests:
+  do_not_increment_build_number: true
+branches:
+  only:
+  - master
+assembly_info:
+  patch: true
+  file: '**\AssemblyInfo.*'
+  assembly_version: '{version}'
+  assembly_file_version: '{version}'
+  assembly_informational_version: '{version}'
+nuget:
+  disable_publish_on_pr: true
+before_build:
+- cmd: nuget restore
+build:
+  publish_nuget: true
+  publish_nuget_symbols: true
+  include_nuget_references: true
+  verbosity: normal
+test:
+  assemblies: '**\*.Tests.dll'
+  categories:
+    only:
+    - Unit
+deploy:
+- provider: NuGet
+  server: https://www.myget.org/F/bogolib/api/v2/package
+  api_key:
+    secure: +o8ChNFGO9xkUdB3Olvo2UloIWEVbYHcf02JE5t/+LeR67wX7D0y1amLl8ai9qR3
+  symbol_server: https://www.myget.org/F/bogolib/symbols/api/v2/package
+  artifact: /.*\.nupkg/
+  on:
+    branch: master
