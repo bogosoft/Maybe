@@ -125,9 +125,9 @@ namespace Bogosoft.Maybe.Tests
         [TestCase]
         public void NullReferenceCreatesEmptyMayBe()
         {
-            Person person = null;
+            string name = null;
 
-            var maybe = person.Maybe();
+            var maybe = name.Maybe();
 
             maybe.HasValue.ShouldBeFalse();
         }
