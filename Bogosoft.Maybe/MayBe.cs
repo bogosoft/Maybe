@@ -17,6 +17,43 @@ namespace Bogosoft.Maybe
         /// <returns>
         /// A value indicating whether or not the given values are equal.
         /// </returns>
+        public static bool operator ==(T left, MayBe<T> right)
+        {
+            return ReferenceEquals(null, left) && !right.hasValue || right.hasValue && right.value.Equals(left);
+        }
+
+        /// <summary>
+        /// Compare a <see cref="MayBe{T}"/> object with a given value of the specified type for inequality.
+        /// </summary>
+        /// <param name="left">The left hand side of the operation.</param>
+        /// <param name="right">The right hand side of the operation.</param>
+        /// <returns>
+        /// A value indicating whether or not the given values are not equal.
+        /// </returns>
+        public static bool operator !=(T left, MayBe<T> right)
+        {
+            if(ReferenceEquals(null, left) && !right.hasValue)
+            {
+                return false;
+            }
+            else if(ReferenceEquals(null, left) == right.hasValue)
+            {
+                return true;
+            }
+            else
+            {
+                return !left.Equals(right.value);
+            }
+        }
+
+        /// <summary>
+        /// Compare a <see cref="MayBe{T}"/> object with a given value of the specified type for equality.
+        /// </summary>
+        /// <param name="left">The left hand side of the operation.</param>
+        /// <param name="right">The right hand side of the operation.</param>
+        /// <returns>
+        /// A value indicating whether or not the given values are equal.
+        /// </returns>
         public static bool operator ==(MayBe<T> left, T right)
         {
             return left.hasValue && left.value.Equals(right) || !left.hasValue && ReferenceEquals(null, right);
@@ -36,11 +73,7 @@ namespace Bogosoft.Maybe
             {
                 return false;
             }
-            else if(left.hasValue && ReferenceEquals(null, right))
-            {
-                return true;
-            }
-            else if(!left.hasValue && !ReferenceEquals(null, right))
+            else if(left.hasValue == ReferenceEquals(null, right))
             {
                 return true;
             }
@@ -77,7 +110,7 @@ namespace Bogosoft.Maybe
             {
                 return false;
             }
-            else if(!left.hasValue && right.hasValue || left.hasValue && !right.hasValue)
+            else if(left.hasValue != right.hasValue)
             {
                 return true;
             }
@@ -157,7 +190,7 @@ namespace Bogosoft.Maybe
         /// </returns>
         public bool Equals(T other)
         {
-            return hasValue && value.Equals(other);
+            return ReferenceEquals(null, other) != hasValue || hasValue && value.Equals(other);
         }
 
         /// <summary>

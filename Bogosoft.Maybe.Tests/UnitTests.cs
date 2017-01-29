@@ -67,6 +67,8 @@ namespace Bogosoft.Maybe.Tests
             deserialized.ValueOrDefault.ShouldEqual(default(DateTime));
 
             deserialized.ShouldEqual(original);
+
+            (deserialized == original).ShouldBeTrue();
         }
 
         [TestCase]
@@ -94,6 +96,10 @@ namespace Bogosoft.Maybe.Tests
         {
             var number = 1337;
 
+            (number == number.Maybe()).ShouldBeTrue();
+
+            (number != number.Maybe()).ShouldBeFalse();
+
             (number.Maybe() == number).ShouldBeTrue();
 
             (number.Maybe() != number).ShouldBeFalse();
@@ -101,6 +107,28 @@ namespace Bogosoft.Maybe.Tests
             (number.Maybe() == number.Maybe()).ShouldBeTrue();
 
             (number.Maybe() != number.Maybe()).ShouldBeFalse();
+
+            number.Maybe().Equals(number).ShouldBeTrue();
+
+            number.Maybe().Equals(number.Maybe()).ShouldBeTrue();
+
+            string empty = null;
+
+            (empty == empty.Maybe()).ShouldBeTrue();
+
+            (empty != empty.Maybe()).ShouldBeFalse();
+
+            (empty.Maybe() == empty).ShouldBeTrue();
+
+            (empty.Maybe() != empty).ShouldBeFalse();
+
+            (empty.Maybe() == empty.Maybe()).ShouldBeTrue();
+
+            (empty.Maybe() != empty.Maybe()).ShouldBeFalse();
+
+            empty.Maybe().Equals(empty).ShouldBeTrue();
+
+            empty.Maybe().Equals(empty.Maybe()).ShouldBeTrue();
         }
 
         [TestCase]
@@ -108,6 +136,10 @@ namespace Bogosoft.Maybe.Tests
         {
             var one = 1;
             var two = 2;
+
+            (one == two.Maybe()).ShouldBeFalse();
+
+            (one != two.Maybe()).ShouldBeTrue();
 
             (one.Maybe() == two).ShouldBeFalse();
 
@@ -120,6 +152,27 @@ namespace Bogosoft.Maybe.Tests
             (one.Maybe() == two.Maybe()).ShouldBeFalse();
 
             (one.Maybe() != two.Maybe()).ShouldBeTrue();
+
+            one.Maybe().Equals(two.Maybe()).ShouldBeFalse();
+
+            string empty = null;
+            string hello = "Hello, World!";
+
+            (empty == hello.Maybe()).ShouldBeFalse();
+
+            (empty != hello.Maybe()).ShouldBeTrue();
+
+            (hello == empty.Maybe()).ShouldBeFalse();
+
+            (hello != empty.Maybe()).ShouldBeTrue();
+
+            (hello.Maybe() == empty.Maybe()).ShouldBeFalse();
+
+            (hello.Maybe() != empty.Maybe()).ShouldBeTrue();
+
+            hello.Maybe().Equals(empty.Maybe()).ShouldBeFalse();
+
+            empty.Maybe().Equals(hello.Maybe()).ShouldBeFalse();
         }
 
         [TestCase]
