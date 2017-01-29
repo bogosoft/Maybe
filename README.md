@@ -54,7 +54,7 @@ o    /// </summary>
     TItem Lookup(TKey key);
 }
 ```
-N
+
 Here, the opposite approach was taken, and now the consumer can be *reasonably* assured that an exception *will* be thrown if the key does not exist.
 
 There's still one major problem: no matter what the contract says about how things *should* happen, **its up to the implementor to ensure that their implemented behavior matches the intended behavior**.
