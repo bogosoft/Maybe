@@ -176,6 +176,22 @@ namespace Bogosoft.Maybe.Tests
         }
 
         [TestCase]
+        public void MayBeVersusIMayBeEquality()
+        {
+            var salutation = "Hello, World!";
+
+            salutation.Maybe().Equals(new Always<string>(salutation)).ShouldBeTrue();
+
+            salutation.Maybe().Equals(new Never<string>()).ShouldBeFalse();
+
+            string empty = null;
+
+            empty.Maybe().Equals(new Always<string>("Hello, World!")).ShouldBeFalse();
+
+            empty.Maybe().Equals(new Never<string>()).ShouldBeTrue();
+        }
+
+        [TestCase]
         public void NullReferenceCreatesEmptyMayBe()
         {
             string name = null;

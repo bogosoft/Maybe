@@ -7,7 +7,12 @@ namespace Bogosoft.Maybe
     /// A data structure that might contain a valid value of a specified type.
     /// </summary>
     /// <typeparam name="T">The type of the value that might be contained.</typeparam>
-    public struct MayBe<T> : IEquatable<T>, IEquatable<MayBe<T>>, IMayBe<T>, ISerializable
+    public struct MayBe<T> :
+        IEquatable<T>,
+        IEquatable<IMayBe<T>>,
+        IEquatable<MayBe<T>>,
+        IMayBe<T>,
+        ISerializable
     {
         /// <summary>
         /// Compare a <see cref="MayBe{T}"/> object with a given value of the specified type for equality.
@@ -194,6 +199,33 @@ namespace Bogosoft.Maybe
         }
 
         /// <summary>
+        /// Compare the current possible vale to another for equality.
+        /// </summary>
+        /// <param name="other">Another possible value.</param>
+        /// <returns>
+        /// A value indicating whether or not the current possible value equals the given possible value.
+        /// </returns>
+        public bool Equals(IMayBe<T> other)
+        {
+            if(ReferenceEquals(null, other))
+            {
+                return false;
+            }
+            else if(!hasValue && !other.HasValue)
+            {
+                return true;
+            }
+            else if(hasValue != other.HasValue)
+            {
+                return false;
+            }
+            else
+            {
+                return value.Equals(other.Value);
+            }
+        }
+
+        /// <summary>
         /// Compare the current instance to another for equality.
         /// </summary>
         /// <param name="other">Another instance.</param>
@@ -214,7 +246,11 @@ namespace Bogosoft.Maybe
         /// </returns>
         public override bool Equals(object obj)
         {
-            if(obj is IMayBe<T>)
+            if(obj is MayBe<T>)
+            {
+                return Equals((MayBe<T>)obj);
+            }
+            else if(obj is IMayBe<T>)
             {
                 return Equals(obj as IMayBe<T>);
             }

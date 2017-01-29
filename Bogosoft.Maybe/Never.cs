@@ -1,25 +1,27 @@
-﻿namespace Bogosoft.Maybe
+﻿using System;
+
+namespace Bogosoft.Maybe
 {
     /// <summary>
-    /// Represents a data structure that might contain a definite value of a specified type.
+    /// An implementation of the <see cref="IMayBe{T}"/> contract that never contains a definite value.
     /// </summary>
     /// <typeparam name="T">The type of the possible value.</typeparam>
-    public interface IMayBe<out T>
+    public struct Never<T> : IMayBe<T>
     {
         /// <summary>
         /// Get a value indicating whether the current structure contains a valid value.
         /// </summary>
-        bool HasValue { get; }
+        public bool HasValue => false;
 
         /// <summary>
         /// Attempt to get a valid value from the current structure.
         /// </summary>
-        T Value { get; }
+        public T Value => throw new InvalidOperationException(Message.NoValue);
 
         /// <summary>
         /// Get the value contained by this structure if it exists, or the default value
         /// of the specified type if the current structure does not contain a value.
         /// </summary>
-        T ValueOrDefault { get; }
+        public T ValueOrDefault => default(T);
     }
 }
