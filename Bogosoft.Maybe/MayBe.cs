@@ -7,7 +7,7 @@ namespace Bogosoft.Maybe
     /// A data structure that might contain a valid value of a specified type.
     /// </summary>
     /// <typeparam name="T">The type of the value that might be contained.</typeparam>
-    public struct MayBe<T> : IEquatable<T>, IEquatable<MayBe<T>>, IMayBe<T>
+    public struct MayBe<T> : IEquatable<T>, IEquatable<MayBe<T>>, IMayBe<T>, ISerializable
     {
         /// <summary>
         /// Compare a <see cref="MayBe{T}"/> object with a given value of the specified type for equality.

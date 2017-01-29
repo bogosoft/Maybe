@@ -1,12 +1,10 @@
-﻿using System.Runtime.Serialization;
-
-namespace Bogosoft.Maybe
+﻿namespace Bogosoft.Maybe
 {
     /// <summary>
     /// Represents a data structure that might contain a valid value of a specified type.
     /// </summary>
     /// <typeparam name="T">The type of the value that might be contained.</typeparam>
-    public interface IMayBe<out T> : ISerializable
+    public interface IMayBe<out T>
     {
         /// <summary>
         /// Get a value indicating whether the current structure contains a valid value.
