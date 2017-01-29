@@ -16,7 +16,10 @@ namespace Bogosoft.Maybe
         /// <summary>
         /// Attempt to get a valid value from the current structure.
         /// </summary>
-        public T Value => throw new InvalidOperationException(Message.NoValue);
+        public T Value
+        {
+            get { throw new InvalidOperationException(Message.NoValue); }
+        }
 
         /// <summary>
         /// Get the value contained by this structure if it exists, or the default value
