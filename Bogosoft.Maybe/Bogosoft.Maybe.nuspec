@@ -8,6 +8,7 @@
     <owners>$author$</owners>
     <description>$description$</description>
     <copyright>Copyright 2017</copyright>
+    <projectUrl>https://github.com/bogosoft/Maybe</projectUrl>
     <tags>maybe option null</tags>
   </metadata>
 </package>
