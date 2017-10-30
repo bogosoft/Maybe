@@ -7,41 +7,50 @@ namespace Bogosoft.Maybe
     /// A data structure that might contain a valid value of a specified type.
     /// </summary>
     /// <typeparam name="T">The type of the value that might be contained.</typeparam>
-    public struct MayBe<T> :
+    public struct Maybe<T> :
         IEquatable<T>,
-        IEquatable<IMayBe<T>>,
-        IEquatable<MayBe<T>>,
-        IMayBe<T>,
+        IEquatable<Maybe<T>>,
         ISerializable
     {
         /// <summary>
-        /// Compare a <see cref="MayBe{T}"/> object with a given value of the specified type for equality.
+        /// Compare a <see cref="Maybe{T}"/> object with a given value of the specified type for equality.
         /// </summary>
         /// <param name="left">The left hand side of the operation.</param>
         /// <param name="right">The right hand side of the operation.</param>
         /// <returns>
         /// A value indicating whether or not the given values are equal.
         /// </returns>
-        public static bool operator ==(T left, MayBe<T> right)
+        public static bool operator ==(T left, Maybe<T> right)
         {
-            return ReferenceEquals(null, left) && !right.hasValue || right.hasValue && right.value.Equals(left);
+            if (ReferenceEquals(null, left) && ReferenceEquals(null, right.value))
+            {
+                return true;
+            }
+            else if (ReferenceEquals(null, left) || ReferenceEquals(null, right.value))
+            {
+                return false;
+            }
+            else
+            {
+                return left.Equals(right.value);
+            }
         }
 
         /// <summary>
-        /// Compare a <see cref="MayBe{T}"/> object with a given value of the specified type for inequality.
+        /// Compare a <see cref="Maybe{T}"/> object with a given value of the specified type for inequality.
         /// </summary>
         /// <param name="left">The left hand side of the operation.</param>
         /// <param name="right">The right hand side of the operation.</param>
         /// <returns>
         /// A value indicating whether or not the given values are not equal.
         /// </returns>
-        public static bool operator !=(T left, MayBe<T> right)
+        public static bool operator !=(T left, Maybe<T> right)
         {
-            if(ReferenceEquals(null, left) && !right.hasValue)
+            if(ReferenceEquals(null, left) && ReferenceEquals(null, right.value))
             {
                 return false;
             }
-            else if(ReferenceEquals(null, left) == right.hasValue)
+            else if(ReferenceEquals(null, left) || ReferenceEquals(null, right.value))
             {
                 return true;
             }
@@ -52,33 +61,44 @@ namespace Bogosoft.Maybe
         }
 
         /// <summary>
-        /// Compare a <see cref="MayBe{T}"/> object with a given value of the specified type for equality.
+        /// Compare a <see cref="Maybe{T}"/> object with a given value of the specified type for equality.
         /// </summary>
         /// <param name="left">The left hand side of the operation.</param>
         /// <param name="right">The right hand side of the operation.</param>
         /// <returns>
         /// A value indicating whether or not the given values are equal.
         /// </returns>
-        public static bool operator ==(MayBe<T> left, T right)
+        public static bool operator ==(Maybe<T> left, T right)
         {
-            return left.hasValue && left.value.Equals(right) || !left.hasValue && ReferenceEquals(null, right);
+            if (ReferenceEquals(null, left.value) && ReferenceEquals(null, right))
+            {
+                return true;
+            }
+            else if (ReferenceEquals(null, left.value) || ReferenceEquals(null, right))
+            {
+                return false;
+            }
+            else
+            {
+                return left.value.Equals(right);
+            }
         }
 
         /// <summary>
-        /// Compare a <see cref="MayBe{T}"/> object with a given value of the specified type for inequality.
+        /// Compare a <see cref="Maybe{T}"/> object with a given value of the specified type for inequality.
         /// </summary>
         /// <param name="left">The left hand side of the operation.</param>
         /// <param name="right">The right hand side of the operation.</param>
         /// <returns>
         /// A value indicating whether or not the given values are not equal.
         /// </returns>
-        public static bool operator !=(MayBe<T> left, T right)
+        public static bool operator !=(Maybe<T> left, T right)
         {
-            if(!left.hasValue && ReferenceEquals(null, right))
+            if(ReferenceEquals(null, left.value) && ReferenceEquals(null, right))
             {
                 return false;
             }
-            else if(left.hasValue == ReferenceEquals(null, right))
+            else if(ReferenceEquals(null, left.value) || ReferenceEquals(null, right))
             {
                 return true;
             }
@@ -89,33 +109,44 @@ namespace Bogosoft.Maybe
         }
 
         /// <summary>
-        /// Compare two <see cref="MayBe{T}"/> objects for equality.
+        /// Compare two <see cref="Maybe{T}"/> objects for equality.
         /// </summary>
         /// <param name="left">The left hand side of the operation.</param>
         /// <param name="right">The right hand side of the operation.</param>
         /// <returns>
         /// A value indicating whether or not the given values are equal.
         /// </returns>
-        public static bool operator ==(MayBe<T> left, MayBe<T> right)
+        public static bool operator ==(Maybe<T> left, Maybe<T> right)
         {
-            return left.hasValue && right.hasValue && left.value.Equals(right.value) || !left.hasValue && !right.hasValue;
+            if (ReferenceEquals(null, left.value) && ReferenceEquals(null, right.value))
+            {
+                return true;
+            }
+            else if (ReferenceEquals(null, left.value) || ReferenceEquals(null, right.value))
+            {
+                return false;
+            }
+            else
+            {
+                return left.value.Equals(right.value);
+            }
         }
 
         /// <summary>
-        /// Compare two <see cref="MayBe{T}"/> objects for inequality.
+        /// Compare two <see cref="Maybe{T}"/> objects for inequality.
         /// </summary>
         /// <param name="left">The left hand side of the operation.</param>
         /// <param name="right">The right hand side of the operation.</param>
         /// <returns>
         /// A value indicating whether or not the given values are not equal.
         /// </returns>
-        public static bool operator !=(MayBe<T> left, MayBe<T> right)
+        public static bool operator !=(Maybe<T> left, Maybe<T> right)
         {
-            if(!left.hasValue && !right.hasValue)
+            if(ReferenceEquals(null, left.value) && ReferenceEquals(null, right.value))
             {
                 return false;
             }
-            else if(left.hasValue != right.hasValue)
+            else if(ReferenceEquals(null, left.value) || ReferenceEquals(null, right.value))
             {
                 return true;
             }
@@ -126,33 +157,36 @@ namespace Bogosoft.Maybe
         }
 
         /// <summary>
-        /// Get an empty <see cref="MayBe{T}"/> object.
+        /// Get an empty <see cref="Maybe{T}"/> object.
         /// </summary>
-        public static MayBe<T> Empty => new MayBe<T>();
+        public static Maybe<T> Empty => new Maybe<T>();
 
-        bool hasValue;
         T value;
 
         /// <summary>
         /// Get a value indicating whether the current structure contains a valid value.
         /// </summary>
-        public bool HasValue => hasValue;
+        public bool HasValue => !ReferenceEquals(null, value);
 
         /// <summary>
-        /// Attempt to get a valid value from the current structure.
+        /// Set or attempt to get a valid value from the current structure.
         /// </summary>
         public T Value
         {
             get
             {
-                if (hasValue)
-                {
-                    return value;
-                }
-                else
+                if (ReferenceEquals(null, value))
                 {
                     throw new InvalidOperationException(Message.NoValue);
                 }
+                else
+                {
+                    return value;
+                }
+            }
+            set
+            {
+                this.value = value;
             }
         }
 
@@ -160,33 +194,29 @@ namespace Bogosoft.Maybe
         /// Get the value contained by this structure if it exists, or the default value
         /// of the specified type if the current structure does not contain a value.
         /// </summary>
-        public T ValueOrDefault => hasValue ? value : default(T);
+        public T ValueOrDefault => ReferenceEquals(null, value) ? default(T) : value;
 
         /// <summary>
-        /// Create a new instance of the <see cref="MayBe{T}"/> class with a given value.
+        /// Create a new instance of the <see cref="Maybe{T}"/> class with a given value.
         /// </summary>
         /// <param name="value">A value.</param>
-		public MayBe(T value)
+		public Maybe(T value)
         {
-            hasValue = !ReferenceEquals(null, value);
-
             this.value = value;
         }
         
         /// <summary>
-        /// Create a new instance of the <see cref="MayBe{T}"/> with serialized data.
+        /// Create a new instance of the <see cref="Maybe{T}"/> with serialized data.
         /// </summary>
         /// <param name="info">Serialization info.</param>
         /// <param name="context">A serialization context.</param>
-        public MayBe(SerializationInfo info, StreamingContext context)
+        public Maybe(SerializationInfo info, StreamingContext context)
         {
-            hasValue = info.GetBoolean("hasValue");
-
             value = (T)info.GetValue("value", typeof(T));
         }
 
         /// <summary>
-        /// Compare the current value of the current <see cref="MayBe{T}"/> to a given
+        /// Compare the current value of the current <see cref="Maybe{T}"/> to a given
         /// value of the specified type for equality.
         /// </summary>
         /// <param name="other">A value to compare.</param>
@@ -195,33 +225,17 @@ namespace Bogosoft.Maybe
         /// </returns>
         public bool Equals(T other)
         {
-            return ReferenceEquals(null, other) != hasValue || hasValue && value.Equals(other);
-        }
-
-        /// <summary>
-        /// Compare the current possible vale to another for equality.
-        /// </summary>
-        /// <param name="other">Another possible value.</param>
-        /// <returns>
-        /// A value indicating whether or not the current possible value equals the given possible value.
-        /// </returns>
-        public bool Equals(IMayBe<T> other)
-        {
-            if(ReferenceEquals(null, other))
-            {
-                return false;
-            }
-            else if(!hasValue && !other.HasValue)
+            if (ReferenceEquals(null, value) && ReferenceEquals(null, other))
             {
                 return true;
             }
-            else if(hasValue != other.HasValue)
+            else if (ReferenceEquals(null, value) || ReferenceEquals(null, other))
             {
                 return false;
             }
             else
             {
-                return value.Equals(other.Value);
+                return value.Equals(other);
             }
         }
 
@@ -232,9 +246,20 @@ namespace Bogosoft.Maybe
         /// <returns>
         /// A value indicating whether or not the current instance is equal to the given instance.
         /// </returns>
-        public bool Equals(MayBe<T> other)
+        public bool Equals(Maybe<T> other)
         {
-            return (hasValue && other.hasValue && value.Equals(other.value)) || (!hasValue && !other.hasValue);
+            if (ReferenceEquals(null, value) && ReferenceEquals(null, other.value))
+            {
+                return true;
+            }
+            else if (ReferenceEquals(null, value) || ReferenceEquals(null, other.value))
+            {
+                return false;
+            }
+            else
+            {
+                return value.Equals(other.value);
+            }
         }
 
         /// <summary>
@@ -246,13 +271,9 @@ namespace Bogosoft.Maybe
         /// </returns>
         public override bool Equals(object obj)
         {
-            if(obj is MayBe<T>)
+            if(obj is Maybe<T>)
             {
-                return Equals((MayBe<T>)obj);
-            }
-            else if(obj is IMayBe<T>)
-            {
-                return Equals(obj as IMayBe<T>);
+                return Equals((Maybe<T>)obj);
             }
             else if(obj is T)
             {
@@ -274,7 +295,7 @@ namespace Bogosoft.Maybe
         /// </returns>
         public override int GetHashCode()
         {
-            return hasValue ? value.GetHashCode() : base.GetHashCode();
+            return ReferenceEquals(null, value) ? base.GetHashCode() : value.GetHashCode();
         }
 
         /// <summary>
@@ -289,9 +310,18 @@ namespace Bogosoft.Maybe
         /// </param>
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            info.AddValue("hasValue", hasValue);
             info.AddValue("value", value);
         }
+
+        /// <summary>
+        /// Get an actual value from the current instance if one exists or return
+        /// a given fallback if one does not.
+        /// </summary>
+        /// <param name="fallback">
+        /// A value to use if the current instance does not contain an actual value.
+        /// </param>
+        /// <returns>An object of the specified type.</returns>
+        public T Or(T fallback) => ReferenceEquals(null, value) ? fallback : value;
 
         /// <summary>
         /// Get a string representation of the current instance.
@@ -303,7 +333,7 @@ namespace Bogosoft.Maybe
         /// </returns>
         public override string ToString()
         {
-            return hasValue ? value.ToString() : string.Empty;
+            return ReferenceEquals(null, value) ? string.Empty : value.ToString();
         }
     }
 }

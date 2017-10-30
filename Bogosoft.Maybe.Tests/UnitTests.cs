@@ -15,7 +15,7 @@ namespace Bogosoft.Maybe.Tests
 
             try
             {
-                var test = MayBe<int>.Empty.Value;
+                var test = Maybe<string>.Empty.Value;
             }
             catch(Exception e)
             {
@@ -34,13 +34,13 @@ namespace Bogosoft.Maybe.Tests
         {
             var maybe = "Hello, World!".Maybe();
 
-            maybe.ShouldBeType<MayBe<string>>();
+            maybe.ShouldBeType<Maybe<string>>();
         }
 
         [TestCase]
         public void CanGetAlternateValueFromEmptyMayBe()
         {
-            var maybe = MayBe<DateTimeOffset>.Empty;
+            var maybe = Maybe<DateTimeOffset?>.Empty;
 
             maybe.HasValue.ShouldBeFalse();
 
@@ -52,19 +52,19 @@ namespace Bogosoft.Maybe.Tests
         [TestCase]
         public void CanLosslesslySerializeAndDeserailizeMayBeWithoutValue()
         {
-            var original = new MayBe<DateTime>();
+            var original = new Maybe<DateTime?>();
 
             original.HasValue.ShouldBeFalse();
 
-            original.ValueOrDefault.ShouldEqual(default(DateTime));
+            original.ValueOrDefault.ShouldBeNull();
 
             var serialized = JsonConvert.SerializeObject(original);
 
-            var deserialized = JsonConvert.DeserializeObject<MayBe<DateTime>>(serialized);
+            var deserialized = JsonConvert.DeserializeObject<Maybe<DateTime?>>(serialized);
 
             deserialized.HasValue.ShouldBeFalse();
 
-            deserialized.ValueOrDefault.ShouldEqual(default(DateTime));
+            deserialized.ValueOrDefault.ShouldBeNull();
 
             deserialized.ShouldEqual(original);
 
@@ -76,19 +76,7 @@ namespace Bogosoft.Maybe.Tests
         {
             var maybe = DateTime.Now.Maybe();
 
-            maybe.ShouldEqual(JsonConvert.DeserializeObject<MayBe<DateTime>>(JsonConvert.SerializeObject(maybe)));
-        }
-
-        [TestCase]
-        public void CovarianceWorks()
-        {
-            var salutation = "Hello, World!";
-
-            var derived = salutation.Maybe();
-
-            IMayBe<object> generic = derived;
-
-            generic.ToString().ShouldEqual(derived.ToString());
+            maybe.ShouldEqual(JsonConvert.DeserializeObject<Maybe<DateTime>>(JsonConvert.SerializeObject(maybe)));
         }
 
         [TestCase]
@@ -173,22 +161,6 @@ namespace Bogosoft.Maybe.Tests
             hello.Maybe().Equals(empty.Maybe()).ShouldBeFalse();
 
             empty.Maybe().Equals(hello.Maybe()).ShouldBeFalse();
-        }
-
-        [TestCase]
-        public void MayBeVersusIMayBeEquality()
-        {
-            var salutation = "Hello, World!";
-
-            salutation.Maybe().Equals(new Always<string>(salutation)).ShouldBeTrue();
-
-            salutation.Maybe().Equals(new Never<string>()).ShouldBeFalse();
-
-            string empty = null;
-
-            empty.Maybe().Equals(new Always<string>("Hello, World!")).ShouldBeFalse();
-
-            empty.Maybe().Equals(new Never<string>()).ShouldBeTrue();
         }
 
         [TestCase]

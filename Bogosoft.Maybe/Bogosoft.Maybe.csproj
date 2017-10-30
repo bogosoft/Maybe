@@ -42,16 +42,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Always.cs" />
-    <Compile Include="IMayBe.cs" />
-    <Compile Include="MaybeExtensions.cs" />
     <Compile Include="Message.cs" />
-    <Compile Include="Never.cs" />
     <Compile Include="ObjectExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MayBe.cs" />
+    <Compile Include="Maybe.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Bogosoft.Maybe.nuspec" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
