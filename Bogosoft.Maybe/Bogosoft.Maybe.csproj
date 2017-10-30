@@ -49,5 +49,8 @@
   <ItemGroup>
     <Compile Include="Maybe.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Bogosoft.Maybe.nuspec" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
