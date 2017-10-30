@@ -1,5 +1,5 @@
 # Maybe
-A covariant implementation of the option pattern for .NET 4.5.
+An implementation of the option pattern for .NET.
 
 **Note: this is not currently an implementation of the Maybe Monad, nor should it ever be.**
 
@@ -44,7 +44,7 @@ public interface ILookStuffUp<TKey, TItem>
 {
     /// <summary>
     /// Look something up!
-o    /// </summary>
+    /// </summary>
     /// <returns>
     /// The value associated with the current key.
     /// </returns>
@@ -64,7 +64,8 @@ Even if we did the following:
 ```csharp
 public interface ILookStuffUp<TKey, TItem>
 {
-    /// <summary>    /// Look something up!
+    /// <summary>
+    /// Look something up!
     /// </summary>
     /// <returns>
     /// The value associated with the current key. Implementations SHOULD return the default value for
@@ -107,11 +108,11 @@ public interface ILookStuffUp<TKey, TItem>
     /// <returns>
     /// A possible value of the item type.
     /// </returns>
-    MayBe<TItem> Lookup(TKey key);
+    Maybe<TItem> Lookup(TKey key);
 }
 ```
 
-`MayBe<TItem>` is a struct, so it can't be null. Implementors have to return it, or no compilation. The type itself is clearly defined and well-documented, so there is no ambiguity concerning the behavior of the method. Consumers will *always get a possible value back*.
+`Maybe<TItem>` is a struct, so it can't be null. Implementors have to return it, or no compilation. The type itself is clearly defined and well-documented, so there is no ambiguity concerning the behavior of the method. Consumers will *always get a possible value back*.
 
 Using the above code has achieved two things with regards to *designing interfaces*:
 
