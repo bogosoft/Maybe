@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Bogosoft.Maybe")]
-[assembly: AssemblyDescription("A covariant implementation of the option pattern for .NET 4.5.")]
+[assembly: AssemblyDescription("An implementation of the option pattern for .NET.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Clayton Roth")]
 [assembly: AssemblyProduct("Bogosoft.Maybe")]
