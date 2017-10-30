@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using NUnit.Framework;
-using Should;
 using System;
 
 namespace Bogosoft.Maybe.Tests
@@ -9,7 +8,7 @@ namespace Bogosoft.Maybe.Tests
     public class UnitTests
     {
         [TestCase]
-        public void AttemptingToGetValueFromEmptyMayBeThrowsInvalidOperationException()
+        public void AttemptingToGetValueFromEmptyMaybeThrowsInvalidOperationException()
         {
             Exception exception = null;
 
@@ -22,61 +21,61 @@ namespace Bogosoft.Maybe.Tests
                 exception = e;
             }
 
-            exception.ShouldNotBeNull();
+            Assert.That(exception, Is.Not.Null);
 
-            exception.ShouldBeType<InvalidOperationException>();
+            Assert.That(exception, Is.TypeOf<InvalidOperationException>());
 
-            exception.Message.ShouldEqual(Message.NoValue);
+            Assert.AreEqual(exception.Message, Message.NoValue);
         }
 
         [TestCase]
-        public void CanCreateMayBeFluently()
+        public void CanCreateMaybeFluently()
         {
             var maybe = "Hello, World!".Maybe();
 
-            maybe.ShouldBeType<Maybe<string>>();
+            Assert.That(maybe, Is.TypeOf<Maybe<string>>());
         }
 
         [TestCase]
-        public void CanGetAlternateValueFromEmptyMayBe()
+        public void CanGetAlternateValueFromEmptyMaybe()
         {
             var maybe = Maybe<DateTimeOffset?>.Empty;
 
-            maybe.HasValue.ShouldBeFalse();
+            Assert.That(maybe.HasValue, Is.False);
 
             var now = DateTimeOffset.Now;
 
-            maybe.Or(now).ShouldEqual(now);
+            Assert.AreEqual(maybe.Or(now), now);
         }
 
         [TestCase]
-        public void CanLosslesslySerializeAndDeserailizeMayBeWithoutValue()
+        public void CanLosslesslySerializeAndDeserailizeMaybeWithoutValue()
         {
             var original = new Maybe<DateTime?>();
 
-            original.HasValue.ShouldBeFalse();
+            Assert.That(original.HasValue, Is.False);
 
-            original.ValueOrDefault.ShouldBeNull();
+            Assert.That(original.ValueOrDefault, Is.Null);
 
             var serialized = JsonConvert.SerializeObject(original);
 
             var deserialized = JsonConvert.DeserializeObject<Maybe<DateTime?>>(serialized);
 
-            deserialized.HasValue.ShouldBeFalse();
+            Assert.That(deserialized.HasValue, Is.False);
 
-            deserialized.ValueOrDefault.ShouldBeNull();
+            Assert.That(deserialized.ValueOrDefault, Is.Null);
 
-            deserialized.ShouldEqual(original);
+            Assert.That(deserialized, Is.EqualTo(original));
 
-            (deserialized == original).ShouldBeTrue();
+            Assert.That(deserialized == original, Is.True);
         }
 
         [TestCase]
-        public void CanLosslesslySerializeAndDeserializeMayBeWithValue()
+        public void CanLosslesslySerializeAndDeserializeMaybeWithValue()
         {
             var maybe = DateTime.Now.Maybe();
 
-            maybe.ShouldEqual(JsonConvert.DeserializeObject<Maybe<DateTime>>(JsonConvert.SerializeObject(maybe)));
+            Assert.That(maybe, Is.EqualTo(JsonConvert.DeserializeObject<Maybe<DateTime>>(JsonConvert.SerializeObject(maybe))));
         }
 
         [TestCase]
@@ -84,39 +83,39 @@ namespace Bogosoft.Maybe.Tests
         {
             var number = 1337;
 
-            (number == number.Maybe()).ShouldBeTrue();
+            Assert.That(number == number.Maybe(), Is.True);
 
-            (number != number.Maybe()).ShouldBeFalse();
+            Assert.That(number != number.Maybe(), Is.False);
 
-            (number.Maybe() == number).ShouldBeTrue();
+            Assert.That(number.Maybe() == number, Is.True);
 
-            (number.Maybe() != number).ShouldBeFalse();
+            Assert.That(number.Maybe() != number, Is.False);
 
-            (number.Maybe() == number.Maybe()).ShouldBeTrue();
+            Assert.That(number.Maybe() == number.Maybe(), Is.True);
 
-            (number.Maybe() != number.Maybe()).ShouldBeFalse();
+            Assert.That(number.Maybe() != number.Maybe(), Is.False);
 
-            number.Maybe().Equals(number).ShouldBeTrue();
+            Assert.That(number.Maybe().Equals(number), Is.True);
 
-            number.Maybe().Equals(number.Maybe()).ShouldBeTrue();
+            Assert.That(number.Maybe().Equals(number.Maybe()), Is.True);
 
             string empty = null;
 
-            (empty == empty.Maybe()).ShouldBeTrue();
+            Assert.That(empty == empty.Maybe(), Is.True);
 
-            (empty != empty.Maybe()).ShouldBeFalse();
+            Assert.That(empty != empty.Maybe(), Is.False);
 
-            (empty.Maybe() == empty).ShouldBeTrue();
+            Assert.That(empty.Maybe() == empty, Is.True);
 
-            (empty.Maybe() != empty).ShouldBeFalse();
+            Assert.That(empty.Maybe() != empty, Is.False);
 
-            (empty.Maybe() == empty.Maybe()).ShouldBeTrue();
+            Assert.That(empty.Maybe() == empty.Maybe(), Is.True);
 
-            (empty.Maybe() != empty.Maybe()).ShouldBeFalse();
+            Assert.That(empty.Maybe() != empty.Maybe(), Is.False);
 
-            empty.Maybe().Equals(empty).ShouldBeTrue();
+            Assert.That(empty.Maybe().Equals(empty), Is.True);
 
-            empty.Maybe().Equals(empty.Maybe()).ShouldBeTrue();
+            Assert.That(empty.Maybe().Equals(empty.Maybe()), Is.True);
         }
 
         [TestCase]
@@ -125,52 +124,52 @@ namespace Bogosoft.Maybe.Tests
             var one = 1;
             var two = 2;
 
-            (one == two.Maybe()).ShouldBeFalse();
+            Assert.That(one == two.Maybe(), Is.False);
 
-            (one != two.Maybe()).ShouldBeTrue();
+            Assert.That(one != two.Maybe(), Is.True);
 
-            (one.Maybe() == two).ShouldBeFalse();
+            Assert.That(one.Maybe() == two, Is.False);
 
-            (one.Maybe() != two).ShouldBeTrue();
+            Assert.That(one.Maybe() != two, Is.True);
 
-            (two.Maybe() == one).ShouldBeFalse();
+            Assert.That(two.Maybe() == one, Is.False);
 
-            (two.Maybe() != one).ShouldBeTrue();
+            Assert.That(two.Maybe() != one, Is.True);
 
-            (one.Maybe() == two.Maybe()).ShouldBeFalse();
+            Assert.That(one.Maybe() == two.Maybe(), Is.False);
 
-            (one.Maybe() != two.Maybe()).ShouldBeTrue();
+            Assert.That(one.Maybe() != two.Maybe(), Is.True);
 
-            one.Maybe().Equals(two.Maybe()).ShouldBeFalse();
+            Assert.That(one.Maybe().Equals(two.Maybe()), Is.False);
 
             string empty = null;
             string hello = "Hello, World!";
 
-            (empty == hello.Maybe()).ShouldBeFalse();
+            Assert.That(empty == hello.Maybe(), Is.False);
 
-            (empty != hello.Maybe()).ShouldBeTrue();
+            Assert.That(empty != hello.Maybe(), Is.True);
 
-            (hello == empty.Maybe()).ShouldBeFalse();
+            Assert.That(hello == empty.Maybe(), Is.False);
 
-            (hello != empty.Maybe()).ShouldBeTrue();
+            Assert.That(hello != empty.Maybe(), Is.True);
 
-            (hello.Maybe() == empty.Maybe()).ShouldBeFalse();
+            Assert.That(hello.Maybe() == empty.Maybe(), Is.False);
 
-            (hello.Maybe() != empty.Maybe()).ShouldBeTrue();
+            Assert.That(hello.Maybe() != empty.Maybe(), Is.True);
 
-            hello.Maybe().Equals(empty.Maybe()).ShouldBeFalse();
+            Assert.That(hello.Maybe().Equals(empty.Maybe()), Is.False);
 
-            empty.Maybe().Equals(hello.Maybe()).ShouldBeFalse();
+            Assert.That(empty.Maybe().Equals(hello.Maybe()), Is.False);
         }
 
         [TestCase]
-        public void NullReferenceCreatesEmptyMayBe()
+        public void NullReferenceCreatesEmptyMaybe()
         {
             string name = null;
 
             var maybe = name.Maybe();
 
-            maybe.HasValue.ShouldBeFalse();
+            Assert.That(maybe.HasValue, Is.False);
         }
 
         [TestCase]
@@ -179,7 +178,7 @@ namespace Bogosoft.Maybe.Tests
             object obj1 = null;
             object obj2 = null;
 
-            obj1.Maybe().Equals(obj2.Maybe()).ShouldBeTrue();
+            Assert.That(obj1.Maybe().Equals(obj2.Maybe()), Is.True);
         }
     }
 }

@@ -1,56 +1,17 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
-  <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F825321B-88EB-475D-9EDC-266BFE61BE80}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Bogosoft.Maybe</RootNamespace>
-    <AssemblyName>Bogosoft.Maybe</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\Bogosoft.Maybe.xml</DocumentationFile>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\Bogosoft.Maybe.xml</DocumentationFile>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Message.cs" />
-    <Compile Include="ObjectExtensions.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Maybe.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Bogosoft.Maybe.nuspec" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<AssemblyVersion>2.1.0</AssemblyVersion>
+		<Authors>Clayton Roth</Authors>
+		<Company>Bogosoft</Company>
+		<Copyright>Copyright © 2017</Copyright>
+		<Description>An implementation of the option pattern for .NET.</Description>
+		<FileVersion>2.1.0</FileVersion>
+		<PackageLicenseUrl>https://raw.githubusercontent.com/bogosoft/Maybe/master/LICENSE</PackageLicenseUrl>
+		<PackageProjectUrl>https://github.com/bogosoft/Maybe</PackageProjectUrl>
+		<PackageTags>maybe option pattern</PackageTags>
+		<RepositoryUrl>https://github.com/bogosoft/Maybe</RepositoryUrl>
+		<TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
+		<Title>Bogosoft.Qualification</Title>
+		<Version>2.1.0</Version>
+	</PropertyGroup>
 </Project>
