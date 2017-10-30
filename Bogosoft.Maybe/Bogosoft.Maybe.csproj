@@ -11,7 +11,7 @@
 		<PackageTags>maybe option pattern</PackageTags>
 		<RepositoryUrl>https://github.com/bogosoft/Maybe</RepositoryUrl>
 		<TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
-		<Title>Bogosoft.Qualification</Title>
+		<Title>Bogosoft.Maybe</Title>
 		<Version>2.1.0</Version>
 	</PropertyGroup>
 </Project>
