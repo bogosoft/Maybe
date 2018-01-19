@@ -20,4 +20,10 @@
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
 	  <DocumentationFile>bin\Release\netstandard2.0\Bogosoft.Maybe.xml</DocumentationFile>
 	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net45|AnyCPU'">
+		<DocumentationFile>bin\Debug\net45\Bogosoft.Maybe.xml</DocumentationFile>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net45|AnyCPU'">
+		<DocumentationFile>bin\Release\net45\Bogosoft.Maybe.xml</DocumentationFile>
+	</PropertyGroup>
 </Project>
