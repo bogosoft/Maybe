@@ -41,6 +41,6 @@ deploy:
   symbol_server: http://nuget.smbsrc.net/api/v2/package
   name: ga
   api_key:
-    secure: kahJkX8Cwh0dlGgcncf3lzSyXEO8kxwl1/rG/YizWVSkhlHNn1rXhsKGyZEcph3Q
+    secure: dTgnPw175H8ozk4c5gu0L/DJKaQZzUZIqKdj/u5ksRbe/naLY/7Dmx1d107F08JH
   on:
     branch: master
