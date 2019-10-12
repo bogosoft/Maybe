@@ -180,5 +180,17 @@ namespace Bogosoft.Maybe.Tests
 
             Assert.That(obj1.Maybe().Equals(obj2.Maybe()), Is.True);
         }
+
+        [TestCase]
+        public void ValueCanBeImplicitlyCastToMaybe()
+        {
+            var value = "Hello, World!";
+
+            Maybe<string> maybe = value;
+
+            Assert.That(maybe.GetType() == value.GetType(), Is.False);
+
+            Assert.That(maybe.Value == value, Is.True);
+        }
     }
 }

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Runtime.Serialization;
 
 namespace Bogosoft.Maybe
@@ -155,6 +155,12 @@ namespace Bogosoft.Maybe
                 return !left.value.Equals(right.value);
             }
         }
+
+        /// <summary>
+        /// Automatically convert a given value to its corresponding <see cref="Maybe{T}"/>.
+        /// </summary>
+        /// <param name="value">A value to convert.</param>
+        public static implicit operator Maybe<T>(T value) => new Maybe<T>(value);
 
         /// <summary>
         /// Get an empty <see cref="Maybe{T}"/> object.
