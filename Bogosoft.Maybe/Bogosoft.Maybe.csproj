@@ -1,18 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<AssemblyVersion>2.1.0</AssemblyVersion>
+		<AssemblyVersion>2.2.0</AssemblyVersion>
 		<Authors>Clayton Roth</Authors>
 		<Company>Bogosoft</Company>
 		<Copyright>Copyright © 2017</Copyright>
 		<Description>An implementation of the option pattern for .NET.</Description>
-		<FileVersion>2.1.0</FileVersion>
+		<FileVersion>2.2.0</FileVersion>
 		<PackageLicenseUrl>https://raw.githubusercontent.com/bogosoft/Maybe/master/LICENSE</PackageLicenseUrl>
 		<PackageProjectUrl>https://github.com/bogosoft/Maybe</PackageProjectUrl>
 		<PackageTags>maybe option pattern</PackageTags>
 		<RepositoryUrl>https://github.com/bogosoft/Maybe</RepositoryUrl>
 		<TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
 		<Title>Bogosoft.Maybe</Title>
-		<Version>2.1.0</Version>
+		<Version>2.2.0</Version>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
 		<DocumentationFile>bin\Debug\netstandard2.0\Bogosoft.Maybe.xml</DocumentationFile>
