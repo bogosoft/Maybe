@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Runtime.Serialization;
 
 namespace Bogosoft.Maybe
@@ -22,11 +22,11 @@ namespace Bogosoft.Maybe
         /// </returns>
         public static bool operator ==(T left, Maybe<T> right)
         {
-            if (ReferenceEquals(null, left) && ReferenceEquals(null, right.value))
+            if (left == null && right.value == null)
             {
                 return true;
             }
-            else if (ReferenceEquals(null, left) || ReferenceEquals(null, right.value))
+            else if (left == null || right.value == null)
             {
                 return false;
             }
@@ -46,11 +46,11 @@ namespace Bogosoft.Maybe
         /// </returns>
         public static bool operator !=(T left, Maybe<T> right)
         {
-            if(ReferenceEquals(null, left) && ReferenceEquals(null, right.value))
+            if (left == null && right.value == null)
             {
                 return false;
             }
-            else if(ReferenceEquals(null, left) || ReferenceEquals(null, right.value))
+            else if(left == null || right.value == null)
             {
                 return true;
             }
@@ -70,11 +70,11 @@ namespace Bogosoft.Maybe
         /// </returns>
         public static bool operator ==(Maybe<T> left, T right)
         {
-            if (ReferenceEquals(null, left.value) && ReferenceEquals(null, right))
+            if (left.value == null && right == null)
             {
                 return true;
             }
-            else if (ReferenceEquals(null, left.value) || ReferenceEquals(null, right))
+            else if (left.value == null || right == null)
             {
                 return false;
             }
@@ -94,11 +94,11 @@ namespace Bogosoft.Maybe
         /// </returns>
         public static bool operator !=(Maybe<T> left, T right)
         {
-            if(ReferenceEquals(null, left.value) && ReferenceEquals(null, right))
+            if (left.value == null && right == null)
             {
                 return false;
             }
-            else if(ReferenceEquals(null, left.value) || ReferenceEquals(null, right))
+            else if(left.value == null || right == null)
             {
                 return true;
             }
@@ -118,11 +118,11 @@ namespace Bogosoft.Maybe
         /// </returns>
         public static bool operator ==(Maybe<T> left, Maybe<T> right)
         {
-            if (ReferenceEquals(null, left.value) && ReferenceEquals(null, right.value))
+            if (left.value == null && right.value == null)
             {
                 return true;
             }
-            else if (ReferenceEquals(null, left.value) || ReferenceEquals(null, right.value))
+            else if (left.value == null || right.value == null)
             {
                 return false;
             }
@@ -142,11 +142,11 @@ namespace Bogosoft.Maybe
         /// </returns>
         public static bool operator !=(Maybe<T> left, Maybe<T> right)
         {
-            if(ReferenceEquals(null, left.value) && ReferenceEquals(null, right.value))
+            if (left.value == null && right.value == null)
             {
                 return false;
             }
-            else if(ReferenceEquals(null, left.value) || ReferenceEquals(null, right.value))
+            else if(left.value == null || right.value == null)
             {
                 return true;
             }
@@ -166,7 +166,7 @@ namespace Bogosoft.Maybe
         /// <summary>
         /// Get a value indicating whether the current structure contains a valid value.
         /// </summary>
-        public bool HasValue => !ReferenceEquals(null, value);
+        public bool HasValue => value is object;
 
         /// <summary>
         /// Set or attempt to get a valid value from the current structure.
@@ -175,7 +175,7 @@ namespace Bogosoft.Maybe
         {
             get
             {
-                if (ReferenceEquals(null, value))
+                if (value == null)
                 {
                     throw new InvalidOperationException(Message.NoValue);
                 }
@@ -194,7 +194,7 @@ namespace Bogosoft.Maybe
         /// Get the value contained by this structure if it exists, or the default value
         /// of the specified type if the current structure does not contain a value.
         /// </summary>
-        public T ValueOrDefault => ReferenceEquals(null, value) ? default(T) : value;
+        public T ValueOrDefault => value == null ? default : value;
 
         /// <summary>
         /// Create a new instance of the <see cref="Maybe{T}"/> class with a given value.
@@ -225,11 +225,11 @@ namespace Bogosoft.Maybe
         /// </returns>
         public bool Equals(T other)
         {
-            if (ReferenceEquals(null, value) && ReferenceEquals(null, other))
+            if (value == null && other == null)
             {
                 return true;
             }
-            else if (ReferenceEquals(null, value) || ReferenceEquals(null, other))
+            else if (value == null || other == null)
             {
                 return false;
             }
@@ -248,11 +248,11 @@ namespace Bogosoft.Maybe
         /// </returns>
         public bool Equals(Maybe<T> other)
         {
-            if (ReferenceEquals(null, value) && ReferenceEquals(null, other.value))
+            if (value == null && other.value == null)
             {
                 return true;
             }
-            else if (ReferenceEquals(null, value) || ReferenceEquals(null, other.value))
+            else if (value == null || other.value == null)
             {
                 return false;
             }
@@ -271,13 +271,13 @@ namespace Bogosoft.Maybe
         /// </returns>
         public override bool Equals(object obj)
         {
-            if(obj is Maybe<T>)
+            if (obj is Maybe<T> mt)
             {
-                return Equals((Maybe<T>)obj);
+                return Equals(mt);
             }
-            else if(obj is T)
+            else if(obj is T t)
             {
-                return Equals((T)obj);
+                return Equals(t);
             }
             else
             {
@@ -295,7 +295,7 @@ namespace Bogosoft.Maybe
         /// </returns>
         public override int GetHashCode()
         {
-            return ReferenceEquals(null, value) ? base.GetHashCode() : value.GetHashCode();
+            return value == null ? base.GetHashCode() : value.GetHashCode();
         }
 
         /// <summary>
@@ -321,7 +321,7 @@ namespace Bogosoft.Maybe
         /// A value to use if the current instance does not contain an actual value.
         /// </param>
         /// <returns>An object of the specified type.</returns>
-        public T Or(T fallback) => ReferenceEquals(null, value) ? fallback : value;
+        public T Or(T fallback) => value == null ? fallback : value;
 
         /// <summary>
         /// Get a string representation of the current instance.
@@ -333,7 +333,7 @@ namespace Bogosoft.Maybe
         /// </returns>
         public override string ToString()
         {
-            return ReferenceEquals(null, value) ? string.Empty : value.ToString();
+            return value == null ? string.Empty : value.ToString();
         }
     }
 }
